@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGODB_URL=mongodb+srv://shashwata0986_db_user:N3pHOEkjixvGAGN3@cluster0.udi302u.mongodb.net/?retryWrites=true&w=majority
+      - DATABASE_NAME=emotionsync_db
+      - SECRET_KEY=emotionsync_secret_key_super_secure_jwt_token_change_in_production
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    restart: always
